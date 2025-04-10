@@ -1,24 +1,61 @@
-\# Secure Email ApplicationA modern web application that allows users to securely access and download email attachments using the Gmail API. Built with React (frontend), FastAPI (backend), and MongoDB.## Table of Contents- \[Setup and Running Locally\](#setup-and-running-locally)- \[API Endpoints\](#api-endpoints)- \[Example Test Cases\](#example-test-cases)## Setup and Running Locally### Prerequisites- Node.js (v14 or later)- Python 3.11- MongoDB Atlas account- Google Cloud Project with Gmail API enabled### Installation Steps1. **\*\*Clone the Repository\*\*** \`\`\`bash git clone https://github.com/your-username/secure-email-app.git cd secure-email-app
+# Secure Email Application
+A modern web application that allows users to securely access and download email attachments using the Gmail API. Built with React (frontend), FastAPI (backend), and MongoDB.
+
+## Table of Contents- 
+1. Setup and Running Locally
+2. API Endpoints
+3. Example Test Cases
+
+## Setup and Running Locally
+
+### Prerequisites- 
+- Node.js (v14 or later)
+- Python 3.11- MongoDB Atlas account
+- Google Cloud Project with Gmail API enabled
+
+### Installation Steps1. 
+1. Clone the Repository
+2. git clone https://github.com/vidipsingh/secure-email-app
+3. cd secure-email-app
 
 1.  **Backend Setup**
     
-    *   Install dependencies:bashCollapseWrapCopycd backendpython -m venv venvsource venv/bin/activate _\# On Windows: venv\\Scripts\\activate_pip install -r requirements.txt
+    *   Install dependencies:
+    *       cd backend
+    *       python -m venv venvsource venv/bin/activate
+    *       # On Windows: venv\\Scripts\\activate_
+    *       pip install -r requirements.txt
         
-    *   Configure environment variables in backend/.env:textCollapseWrapCopyMONGO\_URI=mongodb+srv://:@cluster0.mongodb.net/email\_app?retryWrites=true&w=majoritySECRET\_KEY=your-secret-key-hereGOOGLE\_CLIENT\_ID=your-client-idGOOGLE\_CLIENT\_SECRET=your-client-secretGOOGLE\_REFRESH\_TOKEN=your-refresh-token
-        
-    *   Generate a refresh token:bashCollapseWrapCopypython get\_refresh\_token.pyFollow the browser prompt, copy the refresh token, and update .env.
-        
+    *   Configure environment variables in backend/.env:
+```bash
+MONGO_URI=mongodb+srv://:@cluster0.mongodb.net/email\_app?retryWrites=true&w=majority
+SECRET_KEY=your-secret-key-here
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secretGOOGLE
+REFRESH_TOKEN=your-refresh-token
+
+```
+                
 2.  **Frontend Setup**
     
-    *   Install dependencies:bashCollapseWrapCopycd ../frontendnpm install
+    *   Install dependencies:
+        ```bash
+        cd ../frontend
+        npm install
+        ```
         
-    *   Configure environment variables in frontend/.env:textCollapseWrapCopyREACT\_APP\_API\_URL=http://localhost:8000
+    *   Configure environment variables in frontend/.env
+    *       REACT\_APP\_API\_URL=http://localhost:8000
         
 3.  **Run the Application**
     
-    *   Start the backend:bashCollapseWrapCopycd ../backenduvicorn app.main:app --reload
+    *   Start the backend:
+    *       cd ../backend
+    *       uvicorn app.main:app --reload
         
-    *   Start the frontend:bashCollapseWrapCopycd ../frontendnpm start
+    *   Start the frontend:
+    *       cd ../frontend
+    *       npm start
         
     *   Open http://localhost:3000 in your browser.
         
@@ -103,9 +140,6 @@ Example Test Cases
 *   **Request**:bashCollapseWrapCopycurl -X GET "http://localhost:8000/download/123/456" \\ -H "Authorization: Bearer test@example.com"
     
 *   **Expected Response**: Base64-encoded data (200) or 500 if attachment not found
-    
-
-textCollapseWrapCopy---### \`DB\_REPORT.md\`\`\`\`markdown# Database Structure and Workflow ReportThis report details the database structure, schema, workflow, and implemented security measures for the Secure Email Application.## Database Structure- \*\*Database\*\*: MongoDB (cloud-hosted via MongoDB Atlas)- \*\*Collection\*\*: \`users\` - \*\*Schema\*\*: - \`email\` (String): Unique identifier for the user (e.g., "vidip004@gmail.com"). - \`hashed\_password\` (String): Securely hashed password using bcrypt. - \*\*Indexes\*\*: Unique index on \`email\` to prevent duplicate registrations.## Schema Details- \*\*Users Collection\*\*: - Example Document: \`\`\`json { "email": "vidip004@gmail.com", "hashed\_password": "$2b$10$...hashed\_value..." }
 
 *   No sensitive email content or attachments are stored in the database; these are fetched dynamically from the Gmail API.
     
@@ -168,8 +202,3 @@ Future Improvements
 *   **Backup**: Implement regular backups of the users collection.
     
 *   **Auditing**: Add logs for user actions (e.g., login, download) to track usage.
-    
-
-This structure supports a lightweight, secure workflow for managing user authentication and email access.
-
-textCollapseWrapCopy---### Instructions- Save each of these contents into their respective \`.md\` files in the \`secure-email-app/\` directory.- Ensure \`.env\` files are added to \`.gitignore\` to protect sensitive data.- Commit these files to your repository for documentation purposes.Let me know if you need further assistance!
